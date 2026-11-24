@@ -530,8 +530,15 @@ def cmd_conta(_args) -> int:
                 print(f"Permissão: {scope.get('scope')} -> {alvo}")
             if not data.get("granular_scopes"):
                 print("Permissões: " + ", ".join(data.get("scopes") or ["nenhuma"]))
-        except ApiError as e:
-            print(f"Não consegui ler as permissões do token: {e}")
+        except ApiError:
+            try:
+                perms = api("GET", "me/permissions").get("data") or []
+                dadas = [x.get("permission") for x in perms if x.get("status") == "granted"]
+                print("Permissões concedidas: " + (", ".join(dadas) or "nenhuma"))
+                quem = api("GET", "me", {"fields": "id,name"})
+                print(f"Token pertence a: {quem.get('name', '?')}")
+            except ApiError as e:
+                print(f"Não consegui ler as permissões do token: {e}")
     else:
         me = api("GET", "me", {"fields": "user_id,username,account_type"})
         print(f"Conta: @{me.get('username')} ({me.get('account_type', 'tipo desconhecido')})")
