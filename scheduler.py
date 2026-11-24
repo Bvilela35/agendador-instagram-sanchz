@@ -521,6 +521,17 @@ def cmd_conta(_args) -> int:
         info = api("GET", ig_user_id(), {"fields": "username,name,followers_count"})
         print(f"Conta: @{info.get('username')} ({info.get('name', '')}, {info.get('followers_count', '?')} seguidores)")
         print(f"ID: {ig_user_id()}")
+        # Mostra as permissões do token (só nomes e IDs de conta), para diagnosticar falta de permissão.
+        try:
+            data = api("GET", "debug_token", {"input_token": _TOKEN}).get("data") or {}
+            print("Tipo do token: " + str(data.get("type", "?")))
+            for scope in data.get("granular_scopes") or []:
+                alvo = ", ".join(str(i) for i in scope.get("target_ids") or []) or "todas as contas"
+                print(f"Permissão: {scope.get('scope')} -> {alvo}")
+            if not data.get("granular_scopes"):
+                print("Permissões: " + ", ".join(data.get("scopes") or ["nenhuma"]))
+        except ApiError as e:
+            print(f"Não consegui ler as permissões do token: {e}")
     else:
         me = api("GET", "me", {"fields": "user_id,username,account_type"})
         print(f"Conta: @{me.get('username')} ({me.get('account_type', 'tipo desconhecido')})")
