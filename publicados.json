@@ -7,17 +7,17 @@
     "ultimo_erro": "HTTP 400: (#10) Requires instagram_content_publish permission to manage the object (code 10, subcode None)"
   },
   "2026-11-25 09:00 | bw-story-25-1-manha.jpg": {
-    "atualizado": "2026-11-25T20:42:48-03:00",
+    "atualizado": "2026-11-26T02:29:13-03:00",
     "linha": 3,
     "status": "erro",
-    "tentativas": 2,
+    "tentativas": 3,
     "ultimo_erro": "HTTP 400: (#10) Requires instagram_content_publish permission to manage the object (code 10, subcode None)"
   },
   "2026-11-25 19:30 | bw-story-25-2-noite.jpg": {
-    "atualizado": "2026-11-25T20:42:51-03:00",
+    "atualizado": "2026-11-26T02:29:16-03:00",
     "linha": 4,
     "status": "erro",
-    "tentativas": 1,
+    "tentativas": 2,
     "ultimo_erro": "HTTP 400: (#10) Requires instagram_content_publish permission to manage the object (code 10, subcode None)"
   }
 }
